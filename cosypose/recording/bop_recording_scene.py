@@ -1,6 +1,7 @@
 from pathlib import Path
 import pinocchio as pin
 import numpy as np
+import matplotlib.pyplot as plt
 
 from cosypose.config import ASSET_DIR
 
@@ -167,6 +168,9 @@ class BopRecordingScene(BaseScene):
             mask[mask == 255] = 0
             uniqs = np.unique(cam_obs_['mask'])
 
+            # plt.matshow(mask, cmap='gray')
+            # plt.show()
+
             valid = len(uniqs) == len(self.bodies) + 1
             if valid and self.border_check:
                 for uniq in uniqs[uniqs > 0]:
@@ -175,9 +179,12 @@ class BopRecordingScene(BaseScene):
                     if ids[0].max() == H-1 or ids[0].min() == 0 or \
                        ids[1].max() == W-1 or ids[1].min() == 0:
                         valid = False
-            N += 1
-            if N >= 3:
-                raise SamplerError('Cannot sample valid camera configuration.')
+
+            if not valid:
+                N += 1
+                if N >= 3:
+                    raise SamplerError('Cannot sample valid camera configuration.')
+                    
             self.cam_obs = cam_obs_
 
     def _full_rand(self,

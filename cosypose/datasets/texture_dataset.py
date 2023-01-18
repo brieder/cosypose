@@ -6,7 +6,7 @@ from cosypose.config import MEMORY
 class TextureDataset:
     def __init__(self, ds_dir):
         ds_dir = Path(ds_dir)
-        self.parse_image_dir = MEMORY.cache(self.parse_image_dir)
+        #self.parse_image_dir = MEMORY.cache(self.parse_image_dir) XXX Causes issues.
         self.index = self.parse_image_dir(ds_dir)
 
     @staticmethod

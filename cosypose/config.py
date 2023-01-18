@@ -39,7 +39,7 @@ RESULTS_DIR.mkdir(exist_ok=True)
 DEBUG_DATA_DIR.mkdir(exist_ok=True)
 
 ASSET_DIR = DATA_DIR / 'assets'
-MEMORY = Memory(CACHE_DIR, verbose=2)
+MEMORY = Memory(CACHE_DIR, verbose=0)
 
 
 CONDA_PREFIX = os.environ['CONDA_PREFIX']
